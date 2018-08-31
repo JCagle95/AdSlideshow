@@ -1,10 +1,8 @@
 extends layout
 
 block content
-  div
-    img.slideshow(src="images/img1.jpg", style="width: 100%")
-    img.slideshow(src="images/img2.jpg", style="width: 100%")
-    img.slideshow(src="images/img3.jpg", style="width: 100%")
+  div.slideshow.fullpageImage(style="background-image: url(images/img1.jpg);")
+  div.slideshow.fullpageImage(style="background-image: url(images/img2.jpg);")
 
   script.
     var myIndex = 0;
