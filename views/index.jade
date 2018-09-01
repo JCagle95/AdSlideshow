@@ -14,9 +14,8 @@ html
 
     script.
       var myIndex = 0;
-      var delays = !{JSON.stringify(Delay)};
       var content = !{JSON.stringify(Content)};
-      console.log(delays)
+      console.log(content);
       function carousel() {
           var i;
           var x = document.getElementsByClassName("slideshow");
@@ -33,6 +32,6 @@ html
           } else {
             document.getElementById("myVideo").pause();
           }
-          setTimeout(carousel, delays[myIndex-1]*1000); // Change image every 2 seconds
+          setTimeout(carousel, content[myIndex-1].delay * 1000); // Change image every 2 seconds
       }
       carousel();

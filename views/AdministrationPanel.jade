@@ -1,0 +1,26 @@
+extend BackendLayout
+
+block Content
+  div.my-3.my-md-5
+    div.container
+      div.page-header
+        h1.page-title Current Slides
+        div.page-subtitle Current Photos/Videos
+        div.page-options.d-flex
+          a(href="/administration/form").btn.btn-primary Add new slide
+
+      div.row.row-cards
+        for slideContent, i in Content
+          div.col-sm-6.col-lg-4
+            div.card.p-3
+              a.mb-3
+                if slideContent.type == "image"
+                  img.rounded(src="#{slideContent.url}")
+                else
+                  video.rounded(style="width: 98%")
+                    source(src="#{slideContent.url}",type="video/mp4")
+              div.d-flex.align-items-center.px-2
+                div.avatar.avatar-md.mr-3(style="background-image: url()")
+                div.ml-auto.text-muted
+                  a.icon(href="javascript:void(0)")
+                    i.fe.fe-image  Setting
