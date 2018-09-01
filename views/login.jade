@@ -33,18 +33,27 @@ html(lang="en",dir="ltr")
     script(src="/template/plugins/maps-google/plugin.js")
     script(src="/template/plugins/input-mask/plugin.js")
 
-    block ExtraHeader
-
   body
     div.page
-      div.page-main
-        div.header.py-4
-          div.container
-            div.d-flex
-              a.header-brand(href="/administration")
+      div.page-single
+        div.container
+          div.row
+            div.col.col-login.mx-auto
+              div.text-center.mb-6
                 img(src="/images/banner_logo.png")
-              div.d-flex.order-lg-2.ml-auto
-                div.nav-item.d-none.d-md-flex
-                  a(href="/").btn.btn-outline-primary View Slideshow
-
-        block Content
+              form.card(action="/administration/auth", method="post")
+                div.card-body.p-6
+                  div
+                    p#feedbackMessage(style='color: red')= message
+                  div.card-title Login to your account
+                  div.form-group
+                    label.form-label Email Address
+                    input.form-control(type="email", aria-describeby="emailHelp", placeholder="Enter email", name="InputEmail")
+                  div.form-group
+                    label.form-label Password
+                      a.float-right.small(href="") I forgot password
+                    input.form-control(type="password", placeholder="Password", name="InputPassword")
+                  div.form-footer
+                    button.btn.btn-primary.btn-block(type="submit") Sign In
+              div.text-center.text-muted Don't have account yet?
+                a(href="")  Sign up

@@ -1,5 +1,8 @@
 extend BackendLayout
 
+block ExtraHeader
+  script(src="/javascript/POST.js")
+
 block Content
   div.my-3.my-md-5
     div.container
@@ -20,7 +23,12 @@ block Content
                   video.rounded(style="width: 98%")
                     source(src="#{slideContent.url}",type="video/mp4")
               div.d-flex.align-items-center.px-2
-                div.avatar.avatar-md.mr-3(style="background-image: url()")
+                //div.avatar.avatar-md.mr-3(style="background-image: url()")
+                div= slideContent.name
+
                 div.ml-auto.text-muted
-                  a.icon(href="javascript:void(0)")
-                    i.fe.fe-image  Setting
+                  a.icon(onclick='removeFunction("#{slideContent.objectID}");')
+                    i.fe.fe-trash-2 Trash
+
+                  a.icon(onclick='editFunction("#{slideContent.objectID}");',style="margin-left: 1.5em")
+                    i.fe.fe-edit Edit

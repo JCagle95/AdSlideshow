@@ -1,3 +1,42 @@
 extend BackendLayout
 
 block Content
+  div.my-3.my-md-5
+    div.container
+      div.row
+        div.col-12
+          form.card(action="/administration/addItem", method="post")
+            div.card-header
+              h3.card-title New Slide Contents
+            div.card-body
+              div.row
+                div.col-md-3.col-lg-12
+                  div.form-group
+                    label.form-label Name of this slide
+                    input.form-control(type="text", name="Name_Input", placeholder="Please enter the name for content")
+
+                  div.form-group
+                    label.form-label URL of this slide
+                    input.form-control(type="text", name="URL_Input", placeholder="Please enter the URL for content")
+
+                div.col-md-3.col-lg-4
+                  div.form-group
+                    label.form-label Type of URL
+                    select.form-control.custom-select(name="Type_Input")
+                      option(value="video") Video
+                      option(value="image") Image
+
+                div.col-md-3.col-lg-4
+                  div.form-group
+                    label.form-label Delay (in seconds) of this slide
+                    input.form-control(type="number", name="Delay_Input", placeholder="Please enter the delay (in seconds) for content")
+
+                div.col-md-3.col-lg-4
+                  div.form-group
+                    label.form-label Priority of this slide
+                    input.form-control(type="number", name="Priority_Input", placeholder="Please enter the Priority Level (0 - 99, lowest has priority)", min="0", max="99")
+
+            div.card-footer.text-right
+              div.d-flex
+                a(href="/administration").btn.btn-link Cancel
+                button.btn.btn-primary.ml-auto(type="submit") Submit Data

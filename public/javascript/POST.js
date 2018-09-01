@@ -1,12 +1,9 @@
-function addPlayer(pageName) {
-  var playerID = document.getElementById("playerIDDocument").value;
-  var playerIdentifier = document.getElementById("playerNameDocument").value;
-  if (playerIdentifier == "") {
-    playerIdentifier = playerID;
-  }
-  if (playerID) {
-    post('/GW/newID', {id: playerID, name: playerIdentifier, page: pageName});
-  }
+function removeFunction(element) {
+  post('/administration/removeItem', {id: element});
+}
+
+function editFunction(element) {
+  post('/administration/editItem', {id: element});
 }
 
 // Huge thanks to Rakesh Pai for sharing this solution
