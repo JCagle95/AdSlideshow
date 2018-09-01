@@ -3,10 +3,6 @@ body, html {
   overflow：hidden；
 }
 
-a {
-  color: #00B7FF;
-}
-
 .fullpageImage {
   height: 100%;
   width: 100%;
@@ -17,7 +13,6 @@ a {
   background-repeat: no-repeat;
   background-size: cover;
   overflow：hidden；
-
 }
 
 .slideshow {
