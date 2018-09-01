@@ -27,7 +27,7 @@ if (env == 'development') {
   }));
 } else {
   app.set('mongodb', process.env.MONGODB_URI);
-  app.set('database', 'scraperviewer');
+  app.set('database', 'adslideshow');
   app.use(session({
     secret: 'thisisjustatestingproject',
     resave: false,
