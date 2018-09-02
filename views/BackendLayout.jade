@@ -46,5 +46,39 @@ html(lang="en",dir="ltr")
               div.d-flex.order-lg-2.ml-auto
                 div.nav-item.d-none.d-md-flex
                   a(href="/slideshow").btn.btn-outline-primary View Slideshow
+        div#headerMenuCollapse.header.collapse.d-lg-flex.p-0
+          div.container
+            div.row.align-items-center
+              div.col-lg.order-lg-first
+                ul.nav.nav-tabs.border-0.flex-column.flex-lg-row
+                  li.nav-item
+                    a(href="/administration").nav-link
+                      i.fe.fe-home
+                      | Home
+                  li.nav-item
+                    a(href="/administration/gallery").nav-link
+                      i.fe.fe-image
+                      | Gallery
 
         block Content
+
+      footer.footer
+        div.container
+          div.row.align-items-center.flex-row-reverse
+            div.col-auto.ml-lg-auto
+              div.row.align-items-center
+                div.col-auto
+                  ul.list-inline.list-inline-dots.mb-0
+                    li.list-inline-item
+                      a(href="#") Documentation
+                    li.list-inline-item
+                      a(href="#") FAQ
+                div.col-auto
+                  a.btn.btn-outline-primary.btn-sm(href="https://github.com/tabler/tabler") Template Source Code
+
+            div.col-12.col-lg-auto.mt-3.mt-lg-0.text-center
+              | Copyright © 2018
+              a(href=".")  Precision One Health, Inc.
+              |  Theme by
+              a(href="https://codecalm.net",target="_blank")  codecalm.net
+              |  All rights reserved.

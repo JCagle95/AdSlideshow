@@ -5,8 +5,23 @@ var path = require('path');
 var mongodb = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
 
-/* GET Admin page. */
+// TODO Homepage
 router.get('/', function(req, res, next) {
+  res.redirect("/administration/index");
+});
+
+router.get('/index', function(req, res, next) {
+  var url = req.app.get('mongodb');
+  var database = req.app.get('database');
+  if (!req.session.authenticated) {
+      res.redirect("/administration/login");
+      return;
+  }
+  res.render('AdministrationPanel', {Content: {}});
+});
+
+/* GET Admin page. */
+router.get('/gallery', function(req, res, next) {
   var url = req.app.get('mongodb');
   var database = req.app.get('database');
   if (!req.session.authenticated) {
@@ -17,7 +32,7 @@ router.get('/', function(req, res, next) {
   mongodb.connect(url, { useNewUrlParser: true }, async function(err, client) {
     if (err) {
       console.log("Error Connecting to Database");
-      res.render('AdministrationPanel', {Content: {}});
+      res.render('AdministrationGallery', {Content: {}});
       return;
     } else {
       var db = client.db(database);
@@ -26,12 +41,12 @@ router.get('/', function(req, res, next) {
       collection.find({"user": req.session.user[0]}).toArray( async function(err, result) {
         if (err) {
           console.log("Error Reading Collection");
-          res.render('AdministrationPanel', {Content: {}});
+          res.render('AdministrationGallery', {Content: {}});
           return;
         } else {
           if (result == null) {
             console.log("NULL Documents")
-            res.render('AdministrationPanel', {Content: {}});
+            res.render('AdministrationGallery', {Content: {}});
           } else {
             client.close()
             console.log("Success");
@@ -47,7 +62,7 @@ router.get('/', function(req, res, next) {
                 return 1;
               }
             });
-            res.render('AdministrationPanel', {Content: result});
+            res.render('AdministrationGallery', {Content: result});
           }
         }
       })
