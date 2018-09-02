@@ -22,7 +22,6 @@ html
     script.
       var myIndex = 0;
       var content = !{JSON.stringify(Content)};
-      console.log(content);
       function slideshowUpdate() {
           var i;
           var x = document.getElementsByClassName("slideshow");
@@ -35,10 +34,10 @@ html
           if (myIndex > x.length) {myIndex = 1}
           x[myIndex-1].style.display = "block";
           if (content[myIndex-1].type == "video") {
-            //document.getElementById("myVideo").load();
+            document.getElementById("myVideo").load();
           } else {
-            //document.getElementById("myVideo").pause();
+            document.getElementById("myVideo").pause();
           }
-          setTimeout(carousel, content[myIndex-1].delay * 1000); // Change image every 2 seconds
+          setTimeout(slideshowUpdate, content[myIndex-1].delay * 1000); // Change image every 2 seconds
       }
       slideshowUpdate();
