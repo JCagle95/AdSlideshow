@@ -3,12 +3,24 @@ body, html {
   overflow：hidden；
 }
 
-.fullpageImage {
+.fullpage {
   height: 100%;
   width: 100%;
   position: absolute;
   top: 0px;
   left: 0px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow：hidden；
+}
+
+.slideshowImage {
+  height: 55%;
+  width: 55%;
+  position: absolute;
+  top: 25%;
+  left: 6%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

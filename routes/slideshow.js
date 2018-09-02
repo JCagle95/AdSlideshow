@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
   mongodb.connect(url, { useNewUrlParser: true }, async function(err, client) {
     if (err) {
       console.log("Error Connecting to Database");
-      res.render('index', {Content: {}});
+      res.redirect("/administration")
       return;
     } else {
       var db = client.db(database);
@@ -46,7 +46,7 @@ router.get('/', function(req, res, next) {
                 return 1;
               }
             });
-            res.render('index', {Content: result});
+            res.render('slideshow', {Content: result});
           }
         }
       })

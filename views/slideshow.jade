@@ -1,0 +1,44 @@
+html
+  head
+    title Ad Slideshow
+    link(rel='stylesheet', href='/stylesheets/adStyle.css')
+    link(rel='stylesheet', href='/stylesheets/clock.css')
+
+  body
+    div.fullpage(style="background-image: url(/images/background.png);")
+      div.timer
+        p#dateDisplay.date
+        p#timeDisplay.time
+
+      for slideContent, i in Content
+        if slideContent.type == "image"
+          div.slideshow.slideshowImage(style="background-image: url(#{slideContent.url});")
+        else
+          div.slideshow
+            video#myVideo(autoplay,muted).slideshowImage
+              source(src="#{slideContent.url}",type="video/mp4")
+
+    script(src='/javascript/clock.js')
+    script.
+      var myIndex = 0;
+      var content = !{JSON.stringify(Content)};
+      console.log(content);
+      function slideshowUpdate() {
+          var i;
+          var x = document.getElementsByClassName("slideshow");
+          console.log(x)
+          console.log(x.length)
+          for (i = 0; i < x.length; i++) {
+             x[i].style.display = "none";
+          }
+          myIndex++;
+          if (myIndex > x.length) {myIndex = 1}
+          x[myIndex-1].style.display = "block";
+          if (content[myIndex-1].type == "video") {
+            //document.getElementById("myVideo").load();
+          } else {
+            //document.getElementById("myVideo").pause();
+          }
+          setTimeout(carousel, content[myIndex-1].delay * 1000); // Change image every 2 seconds
+      }
+      slideshowUpdate();
