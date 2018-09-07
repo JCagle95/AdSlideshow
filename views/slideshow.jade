@@ -5,18 +5,27 @@ html
     link(rel='stylesheet', href='/stylesheets/clock.css')
 
   body
-    div.fullpage(style="background-image: url(/images/background.png);")
+    div.fullpage(style="background-image: url(/images/Blue.jpg);")
+      div.logo
+        img(src="/images/banner_logo_white.png", height="100")
+
       div.timer
         p#dateDisplay.date
         p#timeDisplay.time
 
+      div.slideshowContainer
+      div.personalContainer
+
       for slideContent, i in Content
         if slideContent.type == "image"
-          div.slideshow.slideshowImage(style="background-image: url(#{slideContent.url});")
+          div.slideshow.slideshowImage(style="background-image: url(#{slideContent.url}) !important;")
         else
           div.slideshow
             video#myVideo(autoplay,muted).slideshowImage
               source(src="#{slideContent.url}",type="video/mp4")
+
+      div.footerText
+        h1.announcement Say something.
 
     script(src='/javascript/clock.js')
     script.

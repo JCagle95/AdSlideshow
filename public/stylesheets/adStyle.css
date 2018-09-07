@@ -3,6 +3,15 @@ body, html {
   overflow：hidden；
 }
 
+.logo {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .fullpage {
   height: 100%;
   width: 100%;
@@ -12,21 +21,45 @@ body, html {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  overflow：hidden；
+}
+
+.slideshowContainer {
+  height: 60%;
+  width: 60%;
+  position: absolute;
+  top: 22%;
+  left: 4.5%;
+  background-image: url(/images/Orange.jpg);
+}
+
+.personalContainer {
+  height: 60%;
+  width: 25%;
+  position: absolute;
+  top: 22%;
+  left: 70%;
+  background-image: url(/images/Orange.jpg);
 }
 
 .slideshowImage {
   height: 55%;
   width: 55%;
   position: absolute;
-  top: 25%;
-  left: 6%;
+  top: 24.5%;
+  left: 7%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  overflow：hidden；
 }
 
 .slideshow {
   display: none;
+}
+
+.footerText {
+  position: absolute;
+  top: 85%;
+  left: 7%;
+  font-family: Verdana,Geneva,sans-serif;
+  font-size: 15pt;
 }
