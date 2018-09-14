@@ -15,9 +15,17 @@ block Content
                     label.form-label Name of this slide
                     input.form-control(type="text", name="Name_Input", placeholder="Please enter the name for content")
 
+                div.col-md-3.col-lg-6
                   div.form-group
                     label.form-label URL of this slide
-                    input.form-control(type="text", name="URL_Input", placeholder="Please enter the URL for content")
+                    input.form-control(type="text", name="URL_Input", placeholder="Please enter the URL for content")#urlLink
+
+                div.col-md-3.col-lg-6
+                  div.form-group
+                    label.form-label Or Upload Instead
+                    div.custom-file
+                      input.custom-file-input(type="file", name="File_Input", onchange='uploadFile();')#fileDocument
+                      label.custom-file-label#filename Choose file
 
                 div.col-md-3.col-lg-4
                   div.form-group

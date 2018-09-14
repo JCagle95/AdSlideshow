@@ -139,7 +139,7 @@ router.post('/addItem', async function(req, res, next) {
         var result = await collection.insertOne({"user": req.session.user[0], "url": stringURL, "type": stringType, "name": stringName, "delay": delay, "priority": priority});
       }
       client.close();
-      res.redirect("/administration");
+      res.redirect("/administration/gallery");
     } catch(err) {
       console.log("Error Adding Item");
       res.redirect("/administration/gallery");

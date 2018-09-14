@@ -17,7 +17,10 @@ block Content
 
                   div.form-group
                     label.form-label URL of the institute
-                    input.form-control(type="text", name="URL_Input", placeholder="Please enter the URL for institute")
+                    div.input-group
+                      span.input-group-prepend#basic-addon3
+                        span.input-group-text https://
+                      input.form-control(type="text", name="URL_Input", placeholder="Please enter the URL for institute")
 
                   div.form-group
                     label.form-label Some extra stuff
