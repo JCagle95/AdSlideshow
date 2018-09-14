@@ -1,6 +1,6 @@
 // Initialize Firebase
 var config = {
-  apiKey: "AIzaSyAACiaKHpK3HkZ0N6oBSV2TyDKS6B6DzJs",
+  apiKey: ENV['GOOGLE_APIKEY'],
   authDomain: "adslideshow.firebaseapp.com",
   databaseURL: "https://adslideshow.firebaseio.com",
   projectId: "adslideshow",
@@ -33,9 +33,6 @@ function uploadFile()
         imageRef.getDownloadURL().then(function(url) {
           var URL_Input = document.getElementById('urlLink');
           URL_Input.value = url;
-          caches.open('my-cache').then((cache) => {
-            cache.put(url, new Response('{"foo": "bar"}'));
-          });
         }).catch(function(error) {
           alert("Error Uploading to the bucket.")
         });
