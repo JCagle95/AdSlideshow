@@ -1,12 +1,5 @@
 // Initialize Firebase
-var config = {
-  apiKey: System.getenv("GOOGLE_APIKEY"),
-  authDomain: "adslideshow.firebaseapp.com",
-  databaseURL: "https://adslideshow.firebaseio.com",
-  projectId: "adslideshow",
-  storageBucket: "adslideshow.appspot.com",
-  messagingSenderId: "1047355627183"
-};
+
 firebase.initializeApp(config);
 
 var storageRef = firebase.storage().ref();

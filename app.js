@@ -20,6 +20,7 @@ var env = process.env.NODE_ENV || 'development'
 if (env == 'development') {
   app.set('mongodb', 'mongodb://localhost:27017/adslideshow');
   app.set('database', 'adslideshow');
+  app.set('apikey', "process.env.GOOGLE_APIKEY");
   app.use(session({
     secret: 'thisisjustatestingproject',
     resave: false,
@@ -29,6 +30,7 @@ if (env == 'development') {
 } else {
   app.set('mongodb', process.env.MONGODB_URI);
   app.set('database', 'adslideshow');
+  app.set('apikey', process.env.GOOGLE_APIKEY);
   app.use(session({
     secret: 'thisisjustatestingproject',
     resave: false,

@@ -101,7 +101,7 @@ router.get('/gallery', function(req, res, next) {
 });
 
 router.get('/form', function(req, res, next) {
-  res.render('AddSlides', {Content: {UserAccount: req.session.user[0], UserSlides: req.session.user[1]}});
+  res.render('AddSlides', {Content: {UserAccount: req.session.user[0], UserSlides: req.session.user[1], APIKEY: req.app.get('apikey')}});
 });
 
 router.get('/institueForm', function(req, res, next) {
