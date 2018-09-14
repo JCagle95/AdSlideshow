@@ -52,7 +52,22 @@ body, html {
   background-size: cover;
 }
 
+.slideshowProfile {
+  height: 55%;
+  width: 20%;
+  position: absolute;
+  top: 24.5%;
+  left: 72.5%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .slideshow {
+  display: none;
+}
+
+.slideshow2 {
   display: none;
 }
 

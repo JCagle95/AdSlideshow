@@ -18,20 +18,49 @@ html
       div.personalContainer
 
       for slideContent, i in Content
-        if slideContent.type == "image"
-          div.slideshow.slideshowImage(style="background-image: url(#{slideContent.url}) !important;")
-        else
-          div.slideshow
-            video#myVideo(autoplay,muted).slideshowImage
-              source(src="#{slideContent.url}",type="video/mp4")
+        if slideContent.position == "gallery1"
+          if slideContent.type == "image"
+            div.slideshow.slideshowImage(style="background-image: url(#{slideContent.url}) !important;")
+          else
+            div.slideshow
+              video#myVideo(autoplay,muted).slideshowImage
+                source(src="#{slideContent.url}",type="video/mp4")
+
+
+      for slideContent, i in Content
+        if slideContent.position == "gallery2"
+          if slideContent.type == "image"
+            div.slideshow2.slideshowProfile(style="background-image: url(#{slideContent.url}) !important;")
+          else
+            div.slideshow2
+              video#myVideo(autoplay,muted).slideshowProfile
+                source(src="#{slideContent.url}",type="video/mp4")
 
       div.footerText
-        h1.announcement Say something.
+        h1.announcement(style="color: 0xffffff") Say something.
 
     script(src='/javascript/clock.js')
     script.
       var myIndex = 0;
       var content = !{JSON.stringify(Content)};
+      function slideshowUpdate() {
+          var i;
+          var x = document.getElementsByClassName("slideshow");
+          console.log(x)
+          console.log(x.length)
+          for (i = 0; i < x.length; i++) {
+             x[i].style.display = "none";
+          }
+          myIndex++;
+          if (myIndex > x.length) {myIndex = 1}
+          x[myIndex-1].style.display = "block";
+          if (content[myIndex-1].type == "video") {
+            document.getElementById("myVideo").load();
+          } else {
+          }
+          setTimeout(slideshowUpdate, content[myIndex-1].delay * 1000); // Change image every 2 seconds
+      }
+
       function slideshowUpdate() {
           var i;
           var x = document.getElementsByClassName("slideshow");

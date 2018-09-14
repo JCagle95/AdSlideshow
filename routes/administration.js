@@ -21,7 +21,7 @@ router.get('/index', function(req, res, next) {
   mongodb.connect(url, { useNewUrlParser: true }, async function(err, client) {
     if (err) {
       console.log("Error Connecting to Database");
-      res.render('AdministrationGallery', {Content: {}});
+      res.render('AdministrationPanel', {Content: {}});
       return;
     } else {
       var db = client.db(database);
@@ -50,8 +50,8 @@ router.get('/index', function(req, res, next) {
   });
 });
 
-/* GET Admin page. */
-router.get('/gallery', function(req, res, next) {
+/* GET Left Slideshow page. */
+router.get('/gallery1', function(req, res, next) {
   var url = req.app.get('mongodb');
   var database = req.app.get('database');
   if (!req.session.authenticated) {
@@ -62,21 +62,21 @@ router.get('/gallery', function(req, res, next) {
   mongodb.connect(url, { useNewUrlParser: true }, async function(err, client) {
     if (err) {
       console.log("Error Connecting to Database");
-      res.render('AdministrationGallery', {Content: {UserAccount: req.session.user[0], UserSlides: req.session.user[1]}});
+      res.render('AdministrationSlides', {Content: {}, UserAccount: req.session.user[0], UserSlides: req.session.user[1], TargetURL: "/administration/form1"});
       return;
     } else {
       var db = client.db(database);
       var collection = db.collection('SlideInformation');
 
-      collection.find({"user": req.session.user[0]}).toArray( async function(err, result) {
+      collection.find({"user": req.session.user[0], "position": "gallery1"}).toArray( async function(err, result) {
         if (err) {
           console.log("Error Reading Collection");
-          res.render('AdministrationGallery', {Content: {UserAccount: req.session.user[0], UserSlides: req.session.user[1]}});
+          res.render('AdministrationSlides', {Content: {}, UserAccount: req.session.user[0], UserSlides: req.session.user[1], TargetURL: "/administration/form1"});
           return;
         } else {
           if (result == null) {
             console.log("NULL Documents")
-            res.render('AdministrationGallery', {Content: {UserAccount: req.session.user[0], UserSlides: req.session.user[1]}});
+            res.render('AdministrationSlides', {Content: {}, UserAccount: req.session.user[0], UserSlides: req.session.user[1], TargetURL: "/administration/form1"});
           } else {
             client.close()
             console.log("Success");
@@ -92,7 +92,7 @@ router.get('/gallery', function(req, res, next) {
                 return 1;
               }
             });
-            res.render('AdministrationGallery', {Content: result, UserAccount: req.session.user[0], UserSlides: req.session.user[1]});
+            res.render('AdministrationSlides', {Content: result, UserAccount: req.session.user[0], UserSlides: req.session.user[1], TargetURL: "/administration/form1"});
           }
         }
       })
@@ -100,8 +100,61 @@ router.get('/gallery', function(req, res, next) {
   });
 });
 
-router.get('/form', function(req, res, next) {
-  res.render('AddSlides', {Content: {UserAccount: req.session.user[0], UserSlides: req.session.user[1], APIKEY: req.app.get('apikey')}});
+router.get('/gallery2', function(req, res, next) {
+  var url = req.app.get('mongodb');
+  var database = req.app.get('database');
+  if (!req.session.authenticated) {
+      res.redirect("/administration/login");
+      return;
+  }
+
+  mongodb.connect(url, { useNewUrlParser: true }, async function(err, client) {
+    if (err) {
+      console.log("Error Connecting to Database");
+      res.render('AdministrationSlides', {Content: {}, UserAccount: req.session.user[0], UserSlides: req.session.user[1], TargetURL: "/administration/form2"});
+      return;
+    } else {
+      var db = client.db(database);
+      var collection = db.collection('SlideInformation');
+
+      collection.find({"user": req.session.user[0], "position": "gallery2"}).toArray( async function(err, result) {
+        if (err) {
+          console.log("Error Reading Collection");
+          res.render('AdministrationSlides', {Content: {}, UserAccount: req.session.user[0], UserSlides: req.session.user[1], TargetURL: "/administration/form2"});
+          return;
+        } else {
+          if (result == null) {
+            console.log("NULL Documents")
+            res.render('AdministrationSlides', {Content: {}, UserAccount: req.session.user[0], UserSlides: req.session.user[1], TargetURL: "/administration/form2"});
+          } else {
+            client.close()
+            console.log("Success");
+            for (i = 0; i < result.length; i++) {
+              result[i].objectID = result[i]._id.toHexString()
+            }
+            result.sort(function(a,b) {
+              if (a.priority < b.priority) {
+                return -1;
+              } else if (a.priority == b.priority) {
+                return 0;
+              } else {
+                return 1;
+              }
+            });
+            res.render('AdministrationSlides', {Content: result, UserAccount: req.session.user[0], UserSlides: req.session.user[1], TargetURL: "/administration/form2"});
+          }
+        }
+      })
+    }
+  });
+});
+
+router.get('/form1', function(req, res, next) {
+  res.render('AddSlides', {Position: "gallery1", Content: {UserAccount: req.session.user[0], UserSlides: req.session.user[1], APIKEY: req.app.get('apikey')}});
+});
+
+router.get('/form2', function(req, res, next) {
+  res.render('AddSlides', {Position: "gallery2", Content: {UserAccount: req.session.user[0], UserSlides: req.session.user[1], APIKEY: req.app.get('apikey')}});
 });
 
 router.get('/institueForm', function(req, res, next) {
@@ -128,6 +181,7 @@ router.post('/addItem', async function(req, res, next) {
     var stringType = req.body.Type_Input;
     var delayID = req.body.Delay_Input;
     var stringPriority = req.body.Priority_Input;
+    var position = req.body.Position;
     var delay = parseInt(delayID);
     var priority = parseInt(stringPriority);
 
@@ -136,18 +190,18 @@ router.post('/addItem', async function(req, res, next) {
     try {
       var item = await collection.findOne({"user": req.session.user[0], "url": stringURL});
       if (item == null) {
-        var result = await collection.insertOne({"user": req.session.user[0], "url": stringURL, "type": stringType, "name": stringName, "delay": delay, "priority": priority});
+        var result = await collection.insertOne({"user": req.session.user[0], "url": stringURL, "type": stringType, "name": stringName, "delay": delay, "priority": priority, "position": position});
       }
       client.close();
-      res.redirect("/administration/gallery");
+      res.redirect("/administration/" + position);
     } catch(err) {
       console.log("Error Adding Item");
-      res.redirect("/administration/gallery");
+      res.redirect("/administration/" + position);
     }
 
   } catch(err) {
     console.log(err);
-    res.redirect("/administration/gallery");
+    res.redirect("/administration/index");
   }
 
 });
@@ -191,7 +245,7 @@ router.post('/removeItem', function(req, res, next) {
             } else {
               console.log("Success in deleting item.")
               client.close();
-              res.redirect("/administration/gallery");
+              res.redirect(req.get('referer'));
             }
           });
         }
@@ -235,7 +289,7 @@ router.post('/editItem', function(req, res, next) {
           collection.findOne({"_id": objectID, "user": req.session.user[0]}, function(err, item) {
             if (err) {
               console.log(err)
-              res.redirect("/administration/gallery")
+              res.redirect("/administration/index")
               return;
             } else {
               console.log("Success in finding item.")
@@ -268,6 +322,7 @@ router.post('/updateItem', async function(req, res, next) {
     var stringType = req.body.Type_Input;
     var delayID = req.body.Delay_Input;
     var stringPriority = req.body.Priority_Input;
+    var position = req.body.Position;
     var id = req.body.ObjectID;
     var delay = parseInt(delayID);
     var priority = parseInt(stringPriority);
@@ -278,15 +333,15 @@ router.post('/updateItem', async function(req, res, next) {
     try {
       collection.updateOne({"_id": objectID}, { $set: {"url": stringURL, "type": stringType, "name": stringName, "delay": delay, "priority": priority}});
       client.close();
-      res.redirect("/administration/gallery");
+      res.redirect("/administration/" + position);
     } catch(err) {
       console.log("Error Adding Item");
-      res.redirect("/administration/gallery");
+      res.redirect("/administration/" + position);
     }
 
   } catch(err) {
     console.log(err);
-    res.redirect("/administration/gallery");
+    res.redirect("/administration/index");
   }
 
 });
