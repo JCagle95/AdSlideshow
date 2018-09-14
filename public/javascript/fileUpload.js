@@ -1,6 +1,6 @@
 // Initialize Firebase
 var config = {
-  apiKey: ENV['GOOGLE_APIKEY'],
+  apiKey: System.getenv("GOOGLE_APIKEY"),
   authDomain: "adslideshow.firebaseapp.com",
   databaseURL: "https://adslideshow.firebaseio.com",
   projectId: "adslideshow",
