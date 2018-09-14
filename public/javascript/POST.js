@@ -6,6 +6,14 @@ function editFunction(element) {
   post('/administration/editItem', {id: element});
 }
 
+function editInstitute(element) {
+  post('/administration/editInstitute', {id: element});
+}
+
+function switchUser(name, element) {
+  post('/administration/switchUser', {name: name, id: element});
+}
+
 // Huge thanks to Rakesh Pai for sharing this solution
 function post(path, params, method) {
     method = method || "post"; // Set method to post by default if not specified.

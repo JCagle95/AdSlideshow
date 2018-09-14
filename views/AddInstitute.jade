@@ -1,0 +1,29 @@
+extend BackendLayout
+
+block Content
+  div.my-3.my-md-5
+    div.container
+      div.row
+        div.col-12
+          form.card(action="/administration/addInstitute", method="post")
+            div.card-header
+              h3.card-title New User/Institute
+            div.card-body
+              div.row
+                div.col-md-3.col-lg-12
+                  div.form-group
+                    label.form-label Name of the institute
+                    input.form-control(type="text", name="Name_Input", placeholder="Please enter the name for institute")
+
+                  div.form-group
+                    label.form-label URL of the institute
+                    input.form-control(type="text", name="URL_Input", placeholder="Please enter the URL for institute")
+
+                  div.form-group
+                    label.form-label Some extra stuff
+                    input.form-control(type="text", name="", placeholder="Please say something (this will do nothing unless further notice)")
+
+            div.card-footer.text-right
+              div.d-flex
+                a(href="/administration/index").btn.btn-link Cancel
+                button.btn.btn-primary.ml-auto(type="submit") Create User

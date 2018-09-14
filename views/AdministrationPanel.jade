@@ -1,5 +1,41 @@
 extend BackendLayout
 
+block ExtraHeader
+  script(src="/javascript/POST.js")
+
 block Content
-  div.fullpage
-   |   
+  div.my-3.my-md-5
+    div.container
+      div.row.row-cards.cow-deck
+        div.col-12
+          div.card
+            div.card-header
+              h3.card-title All Institutes
+              div.page-options.d-flex
+                a(href="/administration/institueForm").btn.btn-primary Add New Institute
+            div.table-responsive
+              table.table.card-table.table-vcenter.text-nowrap
+                thead
+                  tr
+                    th.w-1 No.
+                    th Institute Name
+                    th Other information you want
+                    th Something about it
+                    th I can add a lot of stuff if you want
+                    th
+                    th
+                tbody
+                  for userInfo, i in Content
+                    tr
+                      td
+                        span.text-muted= i
+                      td
+                        a(href="https://#{userInfo.url}").text-inherit= userInfo.name
+                      td
+                      td
+                      td
+                      td.text-right
+                        a(onclick='switchUser("#{userInfo.name}","#{userInfo.objectID}");').btn.btn-secondary.btn-sm Manage
+                      td
+                        a.icon(onclick='editInstitute("#{userInfo.objectID}");')
+                          i.fe.fe-edit

@@ -45,7 +45,17 @@ html(lang="en",dir="ltr")
                 img(src="/images/banner_logo.png", height="50")
               div.d-flex.order-lg-2.ml-auto
                 div.nav-item.d-none.d-md-flex
-                  a(href="/slideshow").btn.btn-outline-primary View Slideshow
+                  a(href="/slideshow/#{UserSlides}").btn.btn-outline-primary View Slideshow
+                div.dropdown(style="padding-top: 8px;")
+                  a(href="#", data-toggle="dropdown", style="").nav-link.pr-0.leading-none
+                    span.avatar(style="background-image: url(/images/profile.png)")
+                    span.ml-2.d-none.d-lg-block
+                      span.text-default= UserAccount
+                      small.text-muted.d-block.mt-1 Administrator
+                  div.dropdown-menu.dropdown-menu-right.dropdown-menu-arrow
+                    a.dropdown-item(href="#") Profile
+                    a.dropdown-item(href="/administration/logout") Logout
+
         div#headerMenuCollapse.header.collapse.d-lg-flex.p-0
           div.container
             div.row.align-items-center
