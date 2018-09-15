@@ -12,6 +12,7 @@ html
 
       div.timer
         p#dateDisplay.date
+        p
         p#timeDisplay.time
 
       div.slideshowContainer
@@ -23,7 +24,7 @@ html
             div.slideshow.slideshowImage(style="background-image: url(#{slideContent.url}) !important;")
           else
             div.slideshow
-              video#myVideo(autoplay,muted).slideshowImage
+              video#slideVideo(autoplay,muted).slideshowImage
                 source(src="#{slideContent.url}",type="video/mp4")
 
 
@@ -33,49 +34,64 @@ html
             div.slideshow2.slideshowProfile(style="background-image: url(#{slideContent.url}) !important;")
           else
             div.slideshow2
-              video#myVideo(autoplay,muted).slideshowProfile
+              video#profileVideo(autoplay,muted).slideshowProfile
                 source(src="#{slideContent.url}",type="video/mp4")
 
       div.footerText
-        h1.announcement(style="color: 0xffffff") Say something.
+        h1.announcement(style="color: #ffffff")= Message
 
-    script(src='/javascript/clock.js')
-    script.
-      var myIndex = 0;
-      var content = !{JSON.stringify(Content)};
-      function slideshowUpdate() {
-          var i;
-          var x = document.getElementsByClassName("slideshow");
-          console.log(x)
-          console.log(x.length)
-          for (i = 0; i < x.length; i++) {
-             x[i].style.display = "none";
-          }
-          myIndex++;
-          if (myIndex > x.length) {myIndex = 1}
-          x[myIndex-1].style.display = "block";
-          if (content[myIndex-1].type == "video") {
-            document.getElementById("myVideo").load();
-          } else {
-          }
-          setTimeout(slideshowUpdate, content[myIndex-1].delay * 1000); // Change image every 2 seconds
-      }
 
-      function slideshowUpdate() {
-          var i;
-          var x = document.getElementsByClassName("slideshow");
-          console.log(x)
-          console.log(x.length)
-          for (i = 0; i < x.length; i++) {
-             x[i].style.display = "none";
-          }
-          myIndex++;
-          if (myIndex > x.length) {myIndex = 1}
-          x[myIndex-1].style.display = "block";
-          if (content[myIndex-1].type == "video") {
-            document.getElementById("myVideo").load();
-          } else {
-          }
-          setTimeout(slideshowUpdate, content[myIndex-1].delay * 1000); // Change image every 2 seconds
+  script(src='/javascript/clock.js')
+  script.
+    var i;
+    var slideIndex = 0;
+    var profileIndex = 0;
+    var content = !{JSON.stringify(Content)};
+    var slideDeck = []
+    var profileDeck = []
+    for (i = 0; i < content.length; i++) {
+      if (content[i].position == "gallery1") {
+          slideDeck.push(content[i]);
+      } else {
+          profileDeck.push(content[i]);
       }
-      slideshowUpdate();
+    }
+
+    function slideshowUpdate() {
+        var i;
+        var x = document.getElementsByClassName("slideshow");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        slideIndex++;
+
+        if (slideIndex > x.length) {slideIndex = 1}
+
+        if (x.length > 0) x[slideIndex-1].style.display = "block";
+
+        if (content[slideIndex-1].type == "video")
+            document.getElementById("slideVideo").load();
+
+        if (x.length > 0) setTimeout(slideshowUpdate, slideDeck[slideIndex-1].delay * 1000); // Change image every 2 seconds
+    }
+
+    function profileslideUpdate() {
+      var i;
+      var x = document.getElementsByClassName("slideshow2");
+      for (i = 0; i < x.length; i++) {
+         x[i].style.display = "none";
+      }
+      profileIndex++;
+
+      if (profileIndex > x.length) {profileIndex = 1}
+
+      if (x.length > 0) x[profileIndex-1].style.display = "block";
+
+      if (profileDeck[profileIndex-1].type == "video")
+        document.getElementById("profileVideo").load();
+
+      if (x.length > 0) setTimeout(profileslideUpdate, profileDeck[profileIndex-1].delay * 1000); // Change image every 2 seconds
+    }
+
+    slideshowUpdate();
+    profileslideUpdate();

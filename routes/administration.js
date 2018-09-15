@@ -365,13 +365,14 @@ router.post('/addInstitute', async function(req, res, next) {
     var db = client.db(database);
     var stringURL = req.body.URL_Input;
     var stringName = req.body.Name_Input;
+    var message = req.body.Message_Input;
 
     const collection = await db.collection('UserInformation');
 
     try {
       var item = await collection.findOne({"name": stringName, "url": stringURL});
       if (item == null) {
-        var result = await collection.insertOne({"name": stringName, "url": stringURL});
+        var result = await collection.insertOne({"name": stringName, "url": stringURL, "message": message});
       }
       client.close();
       res.redirect("/administration/index");
@@ -448,23 +449,24 @@ router.post('/updateInstitute', async function(req, res, next) {
     var db = client.db(database);
     var stringURL = req.body.URL_Input;
     var stringName = req.body.Name_Input;
+    var message = req.body.Message_Input;
     var id = req.body.ObjectID;
     var objectID = new ObjectID(id);
 
     const collection = await db.collection('UserInformation');
 
     try {
-      collection.updateOne({"_id": objectID}, { $set: {"url": stringURL, "name": stringName}});
+      collection.updateOne({"_id": objectID}, { $set: {"url": stringURL, "name": stringName, "message": message}});
       client.close();
-      res.redirect("/administration");
+      res.redirect("/administration/index");
     } catch(err) {
       console.log("Error Adding Item");
-      res.redirect("/administration");
+      res.redirect("/administration/index");
     }
 
   } catch(err) {
     console.log(err);
-    res.redirect("/administration");
+    res.redirect("/administration/index");
   }
 
 });

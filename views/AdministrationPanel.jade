@@ -19,8 +19,7 @@ block Content
                   tr
                     th.w-1 No.
                     th Institute Name
-                    th Other information you want
-                    th Something about it
+                    th Welcome Message
                     th I can add a lot of stuff if you want
                     th
                     th
@@ -32,7 +31,7 @@ block Content
                       td
                         a(href="https://#{userInfo.url}").text-inherit= userInfo.name
                       td
-                      td
+                        span.text-inherit= userInfo.message
                       td
                       td.text-right
                         a(onclick='switchUser("#{userInfo.name}","#{userInfo.objectID}");').btn.btn-secondary.btn-sm Manage

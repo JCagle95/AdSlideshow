@@ -42,7 +42,7 @@ router.get('/', function(req, res, next) {
               }
             });
             console.log(result)
-            res.render('slideshow', {Content: result});
+            res.render('slideshow', {Content: result, Message: "Welcome to Precision One Health Info Platform"});
           }
         }
       })
@@ -67,6 +67,7 @@ router.get('/:id', function(req, res, next) {
       var db = client.db(database);
       var collection = db.collection('UserInformation');
       var result = await collection.findOne({"_id": objectID})
+      var message = result.message;
 
       collection = db.collection('SlideInformation');
       collection.find({"user": result.name}).toArray( async function(err, result) {
@@ -94,7 +95,7 @@ router.get('/:id', function(req, res, next) {
               }
             });
             console.log(result)
-            res.render('slideshow', {Content: result});
+            res.render('slideshow', {Content: result, Message: message});
           }
         }
       })
