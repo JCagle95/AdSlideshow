@@ -426,7 +426,7 @@ router.post('/editInstitute', function(req, res, next) {
               console.log("Success in finding item.")
               client.close();
               item.objectID = item._id.toHexString()
-              res.render("updateInstitute", {Content: item, UserAccount: req.session.user[0], UserSlides: req.session.user[1]});
+              res.render("UpdateInstitute", {Content: item, UserAccount: req.session.user[0], UserSlides: req.session.user[1]});
             }
           });
         }
