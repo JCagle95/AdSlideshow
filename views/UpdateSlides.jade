@@ -19,6 +19,7 @@ block Content
                   div.form-group
                     label.form-label Name of this slide
                     input.form-control(type="text", name="Name_Input", placeholder="Please enter the name for content", value="#{Content.name}")
+                    input.form-control(type="hidden", name="Position", value="#{Position}")
 
                   div.form-group
                     label.form-label URL of this slide
@@ -48,5 +49,5 @@ block Content
 
             div.card-footer.text-right
               div.d-flex
-                a(href="/administration/gallery").btn.btn-link Cancel
+                a(href="/administration/#{Position}").btn.btn-link Cancel
                 button.btn.btn-primary.ml-auto(type="submit") Update Data
