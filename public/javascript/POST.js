@@ -14,6 +14,11 @@ function switchUser(name, element) {
   post('/administration/switchUser', {name: name, id: element});
 }
 
+function sendTelemetry(id) {
+  var date = new Date()
+  post('/administration/analytics/telemetry', {id: id, currentDate: date.toDateString() });
+}
+
 // Huge thanks to Rakesh Pai for sharing this solution
 function post(path, params, method) {
     method = method || "post"; // Set method to post by default if not specified.

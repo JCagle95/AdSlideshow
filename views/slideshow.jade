@@ -3,6 +3,7 @@ html
     title Ad Slideshow
     link(rel='stylesheet', href='/stylesheets/adStyle.css')
     link(rel='stylesheet', href='/stylesheets/clock.css')
+    script(src='/javascript/POST.js')
     link(rel='stylesheet', type='text/css', href='//fonts.googleapis.com/css?family=Lato')
 
   body
@@ -72,7 +73,10 @@ html
         if (content[slideIndex-1].type == "video")
             document.getElementById("slideVideo").load();
 
-        if (x.length > 0) setTimeout(slideshowUpdate, slideDeck[slideIndex-1].delay * 1000); // Change image every 2 seconds
+        if (x.length > 0) {
+            sendTelemetry(slideDeck[slideIndex-1].objectID);
+            setTimeout(slideshowUpdate, slideDeck[slideIndex-1].delay * 1000); // Change image every 2 seconds
+        }
     }
 
     function profileslideUpdate() {

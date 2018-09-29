@@ -1,0 +1,27 @@
+extend BackendLayout
+
+block Content
+  div.my-3.my-md-5
+    div.container
+      div.page-header
+        h1.page-title Data Analytics
+      div.row
+        div.col-lg-3.order-lg-1.mb-4
+          div.list-group.list-group-transparent.mb-0
+            a(href="/administration/analytics").list-group-item.list-group-item-action.active
+              <span class="icon mr-3"> <i class="fe fe-flag"> </i></span>
+              | Introduction
+            a(href="/administration/analytics/slideshow").list-group-item.list-group-item-action
+              <span class="icon mr-3"> <i class="fe fe-image"> </i></span>
+              | Slideshow Analytics
+            a(href="#").list-group-item.list-group-item-action
+              <span class="icon mr-3"> <i class="fe fe-image"> </i></span>
+              | Profile Analytics
+        div.col-lg-9
+          div.card
+            div.card-body
+              div.text-wrap.p-lg-6
+                h2.mt-0.mb-4 Introduction
+                p.
+                  This is the data analytics page.
+                  Please select the section to view specific analytics.

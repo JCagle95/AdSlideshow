@@ -5,7 +5,6 @@ var path = require('path');
 var mongodb = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
 
-// TODO Homepage
 router.get('/', function(req, res, next) {
   res.redirect("/administration/index");
 });
