@@ -1,0 +1,3 @@
+export GOOGLE_APIKEY=AIzaSyAACiaKHpK3HkZ0N6oBSV2TyDKS6B6DzJs
+export NODE_ENV=DEPLOY
+export MONGODB_URI=mongodb://slideshowAdmin:slideshow01@ds141932.mlab.com:41932/adslideshow

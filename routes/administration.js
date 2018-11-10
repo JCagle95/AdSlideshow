@@ -365,13 +365,20 @@ router.post('/addInstitute', async function(req, res, next) {
     var stringURL = req.body.URL_Input;
     var stringName = req.body.Name_Input;
     var message = req.body.Message_Input;
+    var uniquePatients = req.body.UniquePatient_Input;
+    var annualVisits = req.body.AnnualVisit_Input;
+    var careProviders = req.body.CareProviders_Input;
+    var specialty = req.body.Specialty_Input;
+    var location = req.body.Location_Input;
+    var phone = req.body.Phone_Input;
+    var description = req.body.Description_Input;
 
     const collection = await db.collection('UserInformation');
 
     try {
       var item = await collection.findOne({"name": stringName, "url": stringURL});
       if (item == null) {
-        var result = await collection.insertOne({"name": stringName, "url": stringURL, "message": message});
+        var result = await collection.insertOne({"name": stringName, "url": stringURL, "message": message, "uniquePatients": uniquePatients, "annualVisits": annualVisits, "careProviders": careProviders, "specialty": specialty, "location": location, "phone": phone, "description": description});
       }
       client.close();
       res.redirect("/administration/index");
@@ -384,6 +391,54 @@ router.post('/addInstitute', async function(req, res, next) {
     console.log(err);
     res.redirect("/administration/index");
   }
+});
+
+/* POST Remove ID */
+router.post('/removeInstitute', function(req, res, next) {
+  // Connecting to MongoDB
+  var url = req.app.get('mongodb');
+  var database = req.app.get('database');
+  if (!req.session.authenticated) {
+    res.redirect("/administration/login");
+    return;
+  }
+
+  mongodb.connect(url, { useNewUrlParser: true }, function(err, client) {
+    if (err) {
+      // Failed connecting to database, return and send error message.
+      console.log("Error Connecting to Database");
+      res.send("Error Connecting to Database")
+      return;
+
+    } else {
+      // If connecting to database success
+      var db = client.db(database);
+      var id = req.body.id;
+      var objectID = new ObjectID(id)
+
+      // Try to get collection
+      db.collection('UserInformation', function(err, collection) {
+        if (err) {
+          // Collection not exist. Try to create one.
+          console.log("Error in getting collection");
+          return;
+        } else {
+          // Collection exist. Delete
+          collection.deleteOne({"_id": objectID}, function(err, item) {
+            if (err) {
+              console.log(err)
+              res.send("Error in deleting item.");
+              return;
+            } else {
+              console.log("Success in deleting item.")
+              client.close();
+              res.redirect(req.get('referer'));
+            }
+          });
+        }
+      });
+    }
+  });
 });
 
 router.post('/editInstitute', function(req, res, next) {
@@ -425,6 +480,7 @@ router.post('/editInstitute', function(req, res, next) {
               console.log("Success in finding item.")
               client.close();
               item.objectID = item._id.toHexString()
+              console.log(item)
               res.render("UpdateInstitute", {Content: item, UserAccount: req.session.user[0], UserSlides: req.session.user[1]});
             }
           });
@@ -449,13 +505,20 @@ router.post('/updateInstitute', async function(req, res, next) {
     var stringURL = req.body.URL_Input;
     var stringName = req.body.Name_Input;
     var message = req.body.Message_Input;
+    var uniquePatients = req.body.UniquePatient_Input;
+    var annualVisits = req.body.AnnualVisit_Input;
+    var careProviders = req.body.CareProviders_Input;
+    var specialty = req.body.Specialty_Input;
+    var location = req.body.Location_Input;
+    var phone = req.body.Phone_Input;
+    var description = req.body.Description_Input;
     var id = req.body.ObjectID;
     var objectID = new ObjectID(id);
 
     const collection = await db.collection('UserInformation');
 
     try {
-      collection.updateOne({"_id": objectID}, { $set: {"url": stringURL, "name": stringName, "message": message}});
+      collection.updateOne({"_id": objectID}, { $set: {"url": stringURL, "name": stringName, "message": message, "uniquePatients": uniquePatients, "annualVisits": annualVisits, "careProviders": careProviders, "specialty": specialty, "location": location, "phone": phone, "description": description}});
       client.close();
       res.redirect("/administration/index");
     } catch(err) {
@@ -564,6 +627,44 @@ router.post('/auth', function(req, res, next) {
       });
     }
   }
+});
+
+router.get('/profile', function(req, res, next) {
+  var url = req.app.get('mongodb');
+  var database = req.app.get('database');
+  if (!req.session.authenticated) {
+      res.redirect("/administration/login");
+      return;
+  }
+
+  mongodb.connect(url, { useNewUrlParser: true }, async function(err, client) {
+    if (err) {
+      console.log("Error Connecting to Database");
+      res.render('UserProfile', {Content: {}});
+      return;
+    } else {
+      var db = client.db(database);
+      var collection = db.collection('UserInformation');
+
+      collection.findOne({"name": req.session.user[0]}, function(err, result) {
+        if (err) {
+          console.log("Error Reading Collection");
+          res.render('UserProfile', {Content: {}});
+          return;
+        } else {
+          if (result == null) {
+            console.log("NULL Documents")
+            res.render('UserProfile', {Content: {}});
+          } else {
+            client.close()
+            console.log("Success");
+            result.objectID = result._id.toHexString()
+            res.render('UserProfile', {Content: result, UserAccount: req.session.user[0], UserSlides: req.session.user[1]});
+          }
+        }
+      })
+    }
+  });
 });
 
 module.exports = router;

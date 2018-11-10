@@ -28,6 +28,41 @@ block Content
                     label.form-label Welcome Message
                     input.form-control(type="text", name="Message_Input", placeholder="This will be the message at the bottom", value="#{Content.message}")
 
+                div.col-md-3.col-lg-3
+                  div.form-group
+                    label.form-label Number of Unique Patients
+                    input.form-control(type="number", name="UniquePatient_Input", placeholder="Please enter the number of unique patients for this institute", value="#{Content.uniquePatients}")
+
+                div.col-md-3.col-lg-3
+                  div.form-group
+                    label.form-label Number of Patient Annual Visits
+                    input.form-control(type="number", name="AnnualVisit_Input", placeholder="Please enter the number of patient annual visits", value="#{Content.annualVisits}")
+
+                div.col-md-3.col-lg-3
+                  div.form-group
+                    label.form-label Number of Care Providers
+                    input.form-control(type="number", name="CareProviders_Input", placeholder="Please enter the number of care providers", value="#{Content.careProviders}")
+
+                div.col-md-3.col-lg-3
+                  div.form-group
+                    label.form-label Phone Number
+                    input.form-control(type="number", name="Phone_Input", placeholder="Please enter the contact info", value="#{Content.phone}")
+
+                div.col-md-3.col-lg-3
+                  div.form-group
+                    label.form-label Specialty of the Clinic
+                    input.form-control(type="txt", name="Specialty_Input", placeholder="Please enter the speciality of the clinic", value="#{Content.specialty}")
+
+                div.col-md-3.col-lg-9
+                  div.form-group
+                    label.form-label Location of the Clinic
+                    input.form-control(type="txt", name="Location_Input", placeholder="Please enter the address of the clinic", value="#{Content.location}")
+
+                div.col-md-3.col-lg-12
+                  div.form-group
+                    label.form-label Description
+                    input.form-control(type="txt", name="Description_Input", placeholder="Please enter the description for the clinic", value="#{Content.description}")
+
             div.card-footer.text-right
               div.d-flex
                 a(href="/administration/index").btn.btn-link Cancel

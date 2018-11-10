@@ -20,7 +20,7 @@ block Content
                     th.w-1 No.
                     th Institute Name
                     th Welcome Message
-                    th I can add a lot of stuff if you want
+                    th
                     th
                     th
                 tbody
@@ -32,9 +32,11 @@ block Content
                         a(href="https://#{userInfo.url}").text-inherit= userInfo.name
                       td
                         span.text-inherit= userInfo.message
-                      td
                       td.text-right
                         a(onclick='switchUser("#{userInfo.name}","#{userInfo.objectID}");').btn.btn-secondary.btn-sm Manage
-                      td
+                      td.text-right
                         a.icon(onclick='editInstitute("#{userInfo.objectID}");')
                           i.fe.fe-edit
+                      td.text-left
+                        a.icon(onclick='removeInstitute("#{userInfo.objectID}");')
+                          i.fe.fe-trash

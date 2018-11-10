@@ -1,0 +1,58 @@
+extend BackendLayout
+
+block Content
+  div.my-3.my-md-5
+    div.container
+      div.row.row-cards
+        div.col-lg-4.col-md-12
+          div.card
+            div.card-header
+              h3.card-title Client Information
+            div.card-body
+              div.media.mb-5
+                div.media-body
+                  h5= Content.name
+                  address.text-muted.small= Content.location
+
+              div.row
+                div.col-6
+                  div.h6 Relationship
+                  p Client
+                div.col-6
+                  div.h6 Business Speciality
+                  p= Content.specialty
+                div.col-6
+                  div.h6 Website
+                  p= Content.url
+                div.col-6
+                  div.h6 Office Phone
+                  p= Content.phone
+
+              div.row
+                p
+
+              div.row
+                div.col-6
+                  div.h6 # of Unique Patient
+                  p= Content.uniquePatients
+                div.col-6
+                  div.h6 # of Annual Patient Visits
+                  p= Content.annualVisits
+                div.col-6
+                  div.h6 # of Care Providers
+                  p= Content.careProviders
+
+              div.row
+                p.
+
+              div.h6 Description
+              p= Content.description
+
+        div.col-lg-8.col-md-12
+          div.card
+            div.card-header
+              h3.card-title Fake Google Map (missing API Key)
+            div.card-map.card-map-placeholder(style="background-image: url(https://staticmapmaker.com/img/google@2x.png)")
+
+script.
+  console.log()

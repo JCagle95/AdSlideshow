@@ -10,6 +10,10 @@ function editInstitute(element) {
   post('/administration/editInstitute', {id: element});
 }
 
+function removeInstitute(element) {
+  post('/administration/removeInstitute', {id: element});
+}
+
 function switchUser(name, element) {
   post('/administration/switchUser', {name: name, id: element});
 }
